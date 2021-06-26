@@ -125,6 +125,7 @@ public class BallControl : MonoBehaviour
 
 	public void ResetBall()
 	{
+        //the method will reset the position of the ball
         ThrowCount++;
         rb.mass = 0;
 		rb.useGravity = false;
@@ -134,14 +135,18 @@ public class BallControl : MonoBehaviour
 
         Vector3 ballPos = ARCam.transform.position + ARCam.transform.forward * m_BallCameraOffset.z + ARCam.transform.up * m_BallCameraOffset.y;
 		transform.position = ballPos;
+        //these collider will enable true again for the new score addition
         NetPoint.transform.GetComponent<SphereCollider>().enabled = true;
         Board.transform.GetComponent<SphereCollider>().enabled = true;
 	}
 
+
+    //I'm using colliders for the scoring part
     void OnCollisionEnter(Collision collision)
 	{
         Debug.Log(collision.gameObject.name);
-        //direct in net
+        
+        //this is the net score when the ball goes into the net
         if(collision.gameObject.name == "NetPoint")
 		{
             Debug.Log(collision.gameObject.name);
@@ -149,7 +154,7 @@ public class BallControl : MonoBehaviour
             NetPoint.transform.GetComponent<SphereCollider>().enabled = false;
             Board.transform.GetComponent<SphereCollider>().enabled = false;
         }
-		//if it touch the board
+		//if ball touchs the board
 		if(collision.gameObject.name == "Board")
 		{
             Score += 2;
@@ -160,6 +165,7 @@ public class BallControl : MonoBehaviour
         FinalScore.text = Score.ToString();
     }
 
+    //this method to update the higesht score..
     public void checkHighestScore()
     {
         if (ScoreChecking.HighestScore <= Score)
