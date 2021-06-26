@@ -165,7 +165,7 @@ public class BallControl : MonoBehaviour
         FinalScore.text = Score.ToString();
     }
 
-    //this method to update the higesht score..
+    //this method to update the higesht score....
     public void checkHighestScore()
     {
         if (ScoreChecking.HighestScore <= Score)
